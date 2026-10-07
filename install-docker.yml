@@ -1,0 +1,43 @@
+---
+# Play 1: Install Docker on Amazon Linux (Node 1 & Node 2)
+- name: Install Docker on Amazon Linux nodes
+  hosts: tag_Name_node1:tag_Name_node2
+  become: yes
+  tasks:
+    - name: Update yum packages
+      yum:
+        name: '*'
+        state: latest
+        
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+# Play 2: Install Docker on Ubuntu (Node 3)
+- name: Install Docker on Ubuntu node
+  hosts: tag_Name_node3__ubuntu_
+  become: yes
+  vars:
+    ansible_user: ubuntu
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start and enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes

@@ -1,0 +1,15 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+
+# Ansible / Secrets
+*.pem
+secrets.yml
+
+# Node / Dependencies
+node_modules/
+dist/
+build/
