@@ -52,16 +52,3 @@ Traditional deployments often rely on manual configuration, static IP addresses,
   * Leveraged Ansible's `hostvars` object to programmatically extract the private and public IP addresses of upstream nodes on the fly.
   * Injected the backend's public IP address directly into the React build configuration (`REACT_APP_BASE_URL`), ensuring the single-page application communicates seamlessly with the REST API regardless of infrastructure teardowns or IP reallocations.
 
----
-
-## Key DevOps Challenges Overcome
-
-1. **Out-Of-Memory (OOM) Compilation Crashes:** 
-   * *The Problem:* Compiling React application bundles inside Docker containers on resource-constrained instances (`t2.micro`/`t3.medium`) exhausted physical RAM, causing the Linux kernel to ruthlessly kill the compilation process.
-   * *The Solution:* Dynamically scripted and implemented 1GB of dedicated Linux swap space on the frontend node prior to building, providing the virtual memory buffer required for stable compilation.
-2. **Network Timeouts & Security Group Latency:** 
-   * *The Problem:* Browser requests to port 3000 hung indefinitely because the initial Terraform security group only permitted HTTP/SSH traffic.
-   * *The Solution:* Diagnosed browser network loops using Developer Tools and refactored the Terraform security group configuration to safely open custom TCP ports (3000, 5000, 5432) without triggering destructive instance recreations.
-3. **Secret Hygiene & Version Control:** 
-   * *The Problem:* Exposing cloud credentials or SSH keys (`.pem`) to public repositories introduces severe security risks.
-   * *The Solution:* Established a rigorous `.gitignore` policy blocking local state files (`.tfstate`), private keys, and unencrypted secrets, ensuring clean, professional repository hygiene.
