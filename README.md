@@ -1,9 +1,30 @@
 # 3-Tier PERN Stack Deployment on AWS: Engineering Journey & Theory
 
 A comprehensive documentation of building, automating, and deploying a production-grade 3-tier **PERN stack** (PostgreSQL, Express, React, Node.js) from scratch using modern DevOps practices, Infrastructure as Code, and configuration management.
+## 📊 Architecture Diagram
+
+```text
+                               +-----------------------+
+                               |     Control Node      |
+                               |  (Ansible & Terraform)|
+                               +-----------+-----------+
+                                           |
+                    +----------------------+----------------------+
+                    |                      |                      |
+                    v                      v                      v
+          +-------------------+  +-------------------+  +-------------------+
+          |      Node 1       |  |      Node 2       |  |      Node 3       |
+          |  Database Tier    |  |   Backend Tier    |  |   Frontend Tier   |
+          |  (PostgreSQL)     |  |  (Node.js/Express)|  |  (React & Nginx)  |
+          |    Port: 5432     |  |    Port: 5000     |  |    Port: 3000     |
+          +-------------------+  +-------------------+  +-------------------+
+                    ^                      ^                      ^
+                    |                      |                      |
+                    +---(Private IP)-------+---(Public IP)--------+
+                                        (AWS VPC)
 
 ---
-
+```
 ## Table of Contents
 1. [Project Philosophy & Core Concepts](#project-philosophy--core-concepts)
 2. [Step-by-Step Engineering Journey & Theoretical Breakdown](#step-by-step-engineering-journey--theoretical-breakdown)
